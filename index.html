@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copy Buttons</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body, html {
+            height: 100%;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .button {
+            flex: 1;
+            width: 100%;
+            border: none;
+            cursor: pointer;
+            outline: none;
+        }
+        .button1 {
+            background-color: #3498db; /* Biru */
+        }
+        .button2 {
+            background-color: #e74c3c; /* Merah */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="button button1" onclick="copyText('Yabes')"></button>
+        <button class="button button2" onclick="copyText('kok bisa')"></button>
+    </div>
+
+    <script>
+        function copyText(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+        }
+    </script>
+</body>
+</html>
+
+    <div class="button button1" onclick="copyFunction('test')"></div>
