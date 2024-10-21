@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#3498db">
+    <link rel="manifest" href="/manifest.json">
     <title>Copy Buttons</title>
     <style>
         * {
@@ -35,8 +37,8 @@
 </head>
 <body>
     <div class="container">
-        <button class="button button1" onclick="copyText('Yabes')"></button>
-        <button class="button button2" onclick="copyText('kok bisa')"></button>
+        <button class="button button1" onclick="copyText('Yabes')">Copy Yabes</button>
+        <button class="button button2" onclick="copyText('kok bisa')">Copy Kok Bisa</button>
     </div>
 
     <script>
@@ -48,6 +50,32 @@
             document.execCommand('copy');
             document.body.removeChild(textarea);
         }
+
+        // Tambahkan fitur "Add to Home Screen"
+        let deferredPrompt;
+        const addBtn = document.createElement('button');
+        addBtn.innerText = 'Tambahkan ke Aplikasi';
+        addBtn.style.display = 'none';
+        document.body.appendChild(addBtn);
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            addBtn.style.display = 'block';
+
+            addBtn.addEventListener('click', () => {
+                addBtn.style.display = 'none';
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User accepted the A2HS prompt');
+                    } else {
+                        console.log('User dismissed the A2HS prompt');
+                    }
+                    deferredPrompt = null;
+                });
+            });
+        });
     </script>
 </body>
 </html>
